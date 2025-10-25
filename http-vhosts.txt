@@ -1,0 +1,34 @@
+# configurazioen da copiare nel file di apache per gestire i virtual host
+# in caso di xampp il file è C:\xampp55\apache\conf\extra\httpd-vhosts.conf
+# aggiungere "Listen 96" nel file httpd.conf
+
+# devsen:
+#backend
+<VirtualHost *:80>
+	
+    DocumentRoot "C:/wwwroot/DEVSEN/backend"
+    ServerName devsen.svi
+    ServerAlias devsen.svi
+	<Directory "C:/wwwroot/DEVSEN/backend">	
+		Require all granted
+		
+	</Directory>
+	
+    ErrorLog "logs/devsen.svi-error.log"
+    CustomLog "logs/devsen.svi-access.log" common
+</VirtualHost>
+
+# gateway
+<VirtualHost *:96>
+	
+    DocumentRoot "C:/wwwroot/DEVSEN/backend/gateway"
+    ServerName devsen.svi
+    ServerAlias devsen.svi
+	<Directory "C:/wwwroot/DEVSEN/backend/gateway">	
+		Require all granted
+		
+	</Directory>
+	
+    ErrorLog "logs/devsen_gateway.svi-error.log"
+    CustomLog "logs/devsen_gateway.svi-access.log" common
+</VirtualHost>
