@@ -1,0 +1,31 @@
+# Dipendenze Composer
+/vendor/
+composer.lock
+
+# File di configurazione
+.env
+
+# Log files
+/logs/*.log
+/logs/*.txt
+
+# Cache e temporary files
+*.cache
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

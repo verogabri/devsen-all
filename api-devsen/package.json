@@ -1,0 +1,117 @@
+{
+  "name": "rest-api",
+  "version": "0.5.2",
+  "private": true,
+  "description": "REST API",
+  "main": "dist",
+  "scripts": {
+    "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
+    "build": "babel src -s -D -d dist --presets es2015,stage-0",
+    "start": "node dist",
+    "prestart": "npm run -s build",
+    "test": "eslint src"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Gabri P",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.216.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "circular-json": "^0.5.9",
+    "codice-fiscale-js": "^2.1.0",
+    "compression": "^1.5.2",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.7.1",
+    "crypto": "^1.0.1",
+    "csurf": "^1.9.0",
+    "csv-writer": "^1.6.0",
+    "debug": "^3.1.0",
+    "dont-sniff-mimetype": "^1.0.0",
+    "dotenv": "^5.0.1",
+    "express": "^4.13.3",
+    "express-jwt": "^5.3.1",
+    "express-limiter": "^1.6.1",
+    "express-session": "^1.15.6",
+    "frameguard": "^3.0.0",
+    "gm": "^1.23.1",
+    "google-libphonenumber": "^3.2.2",
+    "helmet": "^3.21.1",
+    "helmet-csp": "^2.9.3",
+    "hpkp": "^2.0.0",
+    "hsts": "^2.1.0",
+    "ienoopen": "^1.0.0",
+    "jade": "^1.11.0",
+    "joi": "^13.4.0",
+    "joi-date-extensions": "^1.2.0",
+    "jsonwebtoken": "^8.2.0",
+    "le-acme-core": "^2.1.3",
+    "lodash": "^4.17.15",
+    "luhn": "^2.3.0",
+    "md5": "^2.2.1",
+    "mimemessage": "^1.0.5",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0",
+    "nocache": "^2.0.0",
+    "node-url-shortener": "^1.0.1",
+    "objects-to-csv": "^1.3.6",
+    "passport": "^0.4.0",
+    "query-string": "^6.1.0",
+    "rand-token": "^0.4.0",
+    "redis": "^2.8.0",
+    "request": "^2.87.0",
+    "resource-router-middleware": "^0.6.0",
+    "rotating-file-stream": "^1.3.6",
+    "sha1": "^1.1.1",
+    "to": "^0.2.9",
+    "underscore": "^1.8.3",
+    "uniqid": "^5.0.3",
+    "update": "^0.7.4",
+    "validate-vat": "^0.9.0",
+    "winston": "^3.0.0",
+    "winston-daily-rotate-file": "^3.3.0",
+    "x-xss-protection": "^1.1.0",
+    "xml2js": "^0.4.23",
+    "xpay-nexi-js": "^0.1.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "eslint": "^3.1.1",
+    "multer": "^1.4.2",
+    "nodemon": "^1.19.4"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "keywords": [
+    "rest",
+    "api",
+    "devser"
+  ]
+}

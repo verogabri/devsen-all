@@ -1,0 +1,12 @@
+{
+    "apps": [
+        {
+            "name": "api-dev",
+            "script": "npm",
+            "args" : "start",
+            "env": {
+                "NODE_ENV": ""
+            }
+        }
+    ]
+}

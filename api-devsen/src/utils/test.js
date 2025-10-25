@@ -1,0 +1,2 @@
+const config = process.env.NODE_ENV=='production' ? require("../config.production.json") : process.env.NODE_ENV=='staging' ? require("../config.staging.json") : require("../config.json");
+// console.log("config", config);
