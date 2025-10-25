@@ -44,8 +44,6 @@ Customers.prototype.getCustomer= function (data, db, callback, logger) {
 
     var extranet = new GATEWAY();
     extranet.getCustomer(data, function(err, Customers) {
-
-        console.log("Customers getCustomer response:", Customers, err);
         
         if (!err) {
             if(callback) callback(false, Customers);
@@ -61,9 +59,6 @@ Customers.prototype.deleteCustomer= function (data, db, callback, logger) {
 
     var extranet = new GATEWAY();
     extranet.deleteCustomer(data, function(response, err) {
-        
-        console.log("Customers deleteCustomer response: response", response );
-        console.log("Customers deleteCustomer response: err", err);
 
         if (!err) {
             if(callback) callback(false, response);

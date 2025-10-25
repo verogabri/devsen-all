@@ -54,14 +54,7 @@ function CustomersList() {
 
     return (
         <div className='customer-list'>
-            <div style={{ margin: '1rem 0', textAlign: 'left' }}>
-                <Button 
-                    secondary 
-                    onClick={toggleShowDelete}
-                >
-                    {showDelete ? 'Nascondi cancellati' : 'Mostra cancellati'}
-                </Button>
-            </div>
+            
             <div>
                 {renderedCustomers}
             </div>

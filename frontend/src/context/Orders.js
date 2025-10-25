@@ -13,6 +13,7 @@ function Provider({children}) {
 
     // array con la lista degli ordini, ogni ordine è un oggetto
     const [orders, setOrders] = useState([]);
+    const [customer_orders, setCustomerOrders] = useState([]);
     
     useEffect( () => {
 
@@ -23,17 +24,29 @@ function Provider({children}) {
 
 
     // carico gli ordini dal JSON-server
-    const fetchOrders = async () => {
+    const fetchOrders = async (id_customer) => {
 
-        console.log(' :: App : fetchOrders');
+        console.log(' :: App : fetchOrders : id_customer =',  id_customer);
+
         // la risposta è già nella forma che serve per la lista degli orders
-        const response = await axios.get(HOST_SERVER+'/'+ORDERS+'/get');
+        let URL = HOST_SERVER+'/'+ORDERS+'';
+        if(id_customer){
+            URL += `/${id_customer}`;
+        }
+
+        console.log(' :: App : fetchOrders : url =',  URL);
+
+        const response = await axios.get(URL);
 
         console.log(' :: App : fetchOrders : axios response = ', response);
 
         // setLastAction('fetch orders at '+new Date().toLocaleTimeString());
 
         setOrders(response.data.data);
+
+        if(response.data.customer){
+            setCustomerOrders(response.data.customer);
+        }
     };
 
     const editOrderById = async (id, orderData) => {
@@ -153,6 +166,7 @@ function Provider({children}) {
     // raccolgo tutte le variabili e funzioni che voglio condividere
     const valueToShare = {
         orders,
+        customer_orders,
         fetchOrders,
         editOrderById,
         deleteOrderById,

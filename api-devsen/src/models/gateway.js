@@ -82,6 +82,32 @@ GATEWAY.prototype.addOrder = function (data, callback, logger) {
 
 };
 
+GATEWAY.prototype.getOrders= function (data, callback, logger) {
+
+    let path = '/getOrders.php';
+    if(data.id_customer){
+        path += '?id_customer='+data.id_customer;
+
+        if(data.id_order){
+            path += '&id_order='+data.id_order;
+        }
+    }
+
+    let options = {
+        host: config.gateway_url,
+        port: config.gateway_port,
+        // path: '/getKitSubitems.php',
+        path: path,
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + data.token,
+        }
+    };
+    
+    this.request(options, callback, logger);
+
+};
+
 GATEWAY.prototype.getOrdersByCustomer = function (data, callback, logger) {
 
     let options = {

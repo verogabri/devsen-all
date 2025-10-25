@@ -29,10 +29,16 @@ Orders.prototype.addOrder = function (data, db, callback, logger) {
 };
 
 
-Orders.prototype.getOrdersByCustomer = function (data, db, callback, logger) {
+Orders.prototype.getOrders = function (data, db, callback, logger) {
     let self = this;
     let extranet = new GATEWAY();
-    extranet.getOrdersByCustomer({ name_customer: data.name_customer, id_order: data.id_order, token: data.token}, function (err, orders) {
+    extranet.getOrders(data, function (err, orders) {
+
+                
+        console.log("Customers deleteCustomer response: orders", orders );
+        console.log("Customers deleteCustomer response: err", err);
+
+
         if (!err) {
             if (callback) callback(false, orders);
         } else {

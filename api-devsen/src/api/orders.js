@@ -85,15 +85,35 @@ export default ({config, db, logger}) => resource({
     //my response
 })
 // restituisce gli ordini di un cliente
-.get('/get/:name_customer', function (req, res, next) {
+.get('/', function (req, res, next) {
     console.log("Getting orders for customer");
-    
-        let name_customer = req.params.name_customer ? req.params.name_customer : '';
-        
-        const orders = new Order();
+
+    const orders = new Order();
         if (req.user) {
-            orders.getOrdersByCustomer({
-                name_customer: name_customer,
+            orders.getOrders({
+                token: req.user.access_token
+            }, db, function (error, response) {
+                if (!error) {
+                    res.status(200).send(response);
+                } else {
+                    res.status(404).send(error);
+                }
+            }, logger);
+        } else {
+            res.status(401).send(error);
+        }
+        
+})
+// restituisce gli ordini di un cliente
+.get('/:id_customer', function (req, res, next) {
+    console.log("Getting orders for customer");
+
+    let id_customer = req.params.id_customer ? req.params.id_customer : '';
+
+    const orders = new Order();
+        if (req.user) {
+            orders.getOrders({
+                id_customer: id_customer,
                 token: req.user.access_token
             }, db, function (error, response) {
                 if (!error) {
@@ -108,14 +128,14 @@ export default ({config, db, logger}) => resource({
         
 })
 // restituisce un ordine di un cliente
-.get('/get/:name_customer/:id_order', function (req, res, next) {
-        let name_customer = req.params.name_customer ? req.params.name_customer : '';
+.get('/:id_customer/:id_order', function (req, res, next) {
+        let id_customer = req.params.id_customer ? req.params.id_customer : '';
         let id_order = req.params.id_order ? parseInt(req.params.id_order, 10) : '';
 
         const orders = new Order();
         if (req.user) {
-            orders.getOrdersByCustomer({
-                name_customer: name_customer,
+            orders.getOrders({
+                id_customer: id_customer,
                 id_order: id_order,
                 token: req.user.access_token
             }, db, function (error, response) {
