@@ -13,23 +13,16 @@ var GATEWAY = function () {
 GATEWAY.prototype.request2 = function (options, callback, logger) {
     let self = this;
     
-    // this.log(logger, "request2 : options =" + options, 'info');
-
     request(options, function(error, response, body) {
         
-        // self.log(logger, "request2 : body =" + body, 'info');
-        // self.log(logger, "request2 : response" + JSON.stringify(response), 'info');
-
-        if(response.statusCode==200){
+        if(response && response.statusCode && response.statusCode==200){
             try{
                 body = JSON.parse(body);
                 if(callback) callback(false, body);
             }catch (e) {
-                // self.log(logger, JSON.stringify(e), 'error');
                 if(callback) callback(body, false);
             }
         }else{
-            // self.log(logger, JSON.stringify(body), 'error');
             if(callback) callback(body, false);
         }
     });
@@ -38,7 +31,6 @@ GATEWAY.prototype.request2 = function (options, callback, logger) {
 GATEWAY.prototype.request = function (options, callback, logger) {
 
     let self = this;
-    this.log(logger, options, 'info');
     
     http.request(options, (resp) => {
         //if(resp.statusCode===200){
@@ -48,18 +40,15 @@ GATEWAY.prototype.request = function (options, callback, logger) {
             data += chunk;
         });
         resp.on('end', () => {
-            self.log(logger, data, 'info');
             if (resp.statusCode == 200) {
                 try {
                     data = JSON.parse(data);
                     if (callback) callback(false, data);
 
                 } catch (e) {
-                    self.log(logger, e, 'error');
                     if (callback) callback(data, false);
                 }
             } else {
-                self.log(logger, data, 'error');
                 if (callback) callback(data, false);
             }
 
@@ -69,8 +58,7 @@ GATEWAY.prototype.request = function (options, callback, logger) {
     }).on("error", (err) => {
         
         if (callback) callback(true, false);
-        self.log(logger, err, 'error');
-
+        
     }).end();
 
 
@@ -185,11 +173,16 @@ GATEWAY.prototype.updateCustomer = function (data, callback, logger) {
 
 GATEWAY.prototype.getCustomer = function (data, callback, logger) {
 
+    let path = '/getCustomer.php';
+    if(data.name_customer){
+        path += '?name_customer='+data.name_customer;
+    }
+
     let options = {
         host: config.gateway_url,
         port: config.gateway_port,
         // path: '/getKitSubitems.php',
-        path: '/getCustomer.php?name_customer='+data.name_customer,
+        path: path,
         method: 'GET',
         headers: {
             "Authorization": "Bearer " + data.token,
@@ -207,7 +200,7 @@ GATEWAY.prototype.deleteCustomer = function (data, callback, logger) {
         host: config.gateway_url,
         port: config.gateway_port,
         // path: '/getKitSubitems.php',
-        path: '/deleteCustomer.php?name_customer='+data.name_customer,
+        path: '/deleteCustomer.php?id_customer='+data.id_customer,
         method: 'GET',
         headers: {
             "Authorization": "Bearer " + data.token,

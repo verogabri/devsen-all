@@ -2,11 +2,11 @@
 import GATEWAY from '../models/gateway';
 
 
-var Customer = function (data) {
+var Customers = function (data) {
     this.customer = data;
 };
 
-Customer.prototype.customer = {};
+Customers.prototype.customer = {};
 
 
 /**
@@ -16,50 +16,39 @@ Customer.prototype.customer = {};
  * @param {*} callback 
  * @param {*} logger 
  */
-Customer.prototype.addCustomer= function (data, db, callback, logger) {
+Customers.prototype.addCustomer= function (data, db, callback, logger) {
 
     var extranet = new GATEWAY();
-    extranet.addCustomer(data, function(err, Customer) {
+    extranet.addCustomer(data, function(response, err) {
         if (!err) {
-            if(callback) callback(false, Customer);
+            if(callback) callback(false, response);
         }else{
             if(callback) callback(err, false);
         }
     }, logger);
 };
 
-Customer.prototype.updateCustomer= function (data, db, callback, logger) {
+Customers.prototype.updateCustomer= function (data, db, callback, logger) {
 
     var extranet = new GATEWAY();
-    extranet.updateCustomer(data, function(err, Customer) {
+    extranet.updateCustomer(data, function(err, response) {
         if (!err) {
-            if(callback) callback(false, Customer);
+            if(callback) callback(false, response);
         }else{
             if(callback) callback(err, false);
         }
     }, logger);
 };
 
-Customer.prototype.getCustomer= function (data, db, callback, logger) {
+Customers.prototype.getCustomer= function (data, db, callback, logger) {
 
     var extranet = new GATEWAY();
-    extranet.getCustomer(data, function(err, Customer) {
+    extranet.getCustomer(data, function(err, Customers) {
+
+        console.log("Customers getCustomer response:", Customers, err);
+        
         if (!err) {
-            if(callback) callback(false, Customer);
-        }else{
-            if(callback) callback(err, false);
-        }
-    }, logger);
-};
-
-
-
-Customer.prototype.deleteCustomer= function (data, db, callback, logger) {
-
-    var extranet = new GATEWAY();
-    extranet.deleteCustomer(data, function(err, Customer) {
-        if (!err) {
-            if(callback) callback(false, Customer);
+            if(callback) callback(false, Customers);
         }else{
             if(callback) callback(err, false);
         }
@@ -67,4 +56,22 @@ Customer.prototype.deleteCustomer= function (data, db, callback, logger) {
 };
 
 
-module.exports = Customer;
+
+Customers.prototype.deleteCustomer= function (data, db, callback, logger) {
+
+    var extranet = new GATEWAY();
+    extranet.deleteCustomer(data, function(response, err) {
+        
+        console.log("Customers deleteCustomer response: response", response );
+        console.log("Customers deleteCustomer response: err", err);
+
+        if (!err) {
+            if(callback) callback(false, response);
+        }else{
+            if(callback) callback(err, false);
+        }
+    }, logger);
+};
+
+
+module.exports = Customers;

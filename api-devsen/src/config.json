@@ -33,8 +33,8 @@
 	"search_areas_limit":10,
 	"search_permissions_limit":10,
 
-	"gateway_url":"gateway.svi",
-	"gateway_port":8086
+	"gateway_url":"devsen.svi",
+	"gateway_port":96
 	
 	
 

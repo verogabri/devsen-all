@@ -9,16 +9,21 @@ export default ({ config, db, ps_db }) => {
 
         const token = req.headers['authorization'] ? req.headers['authorization'].replace('Bearer ','') : false; //get token from request headers
         if(!token){
-            req.user = false; //no user logged with token
+
+            req.user = {}; //no user logged with token
+            req.user.access_token = 'access_token'; //no user logged with token
             next();
         }else{
+
             if(token==config.admin_token){ // admin token no expired
                 req.user = {admin:true};
+                req.user.access_token = 'access_token';
                 next();
             }else{
                 
                 // per adesso lascio fisso l'admin vero
                 req.user = {admin:true};
+                req.user.access_token = 'access_token';
                 next();
 
                 /* controllo da definire meglio 
@@ -62,7 +67,7 @@ export default ({ config, db, ps_db }) => {
 
     // TODO - check
     routes.use(function(err, req, res, next) {
-        console.log(err);
+        
         res.status(500).send('500 page');
 
     });

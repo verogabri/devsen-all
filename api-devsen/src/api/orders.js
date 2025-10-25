@@ -86,6 +86,8 @@ export default ({config, db, logger}) => resource({
 })
 // restituisce gli ordini di un cliente
 .get('/get/:name_customer', function (req, res, next) {
+    console.log("Getting orders for customer");
+    
         let name_customer = req.params.name_customer ? req.params.name_customer : '';
         
         const orders = new Order();
