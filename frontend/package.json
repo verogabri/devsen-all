@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.12.2",
     "bulma": "^1.0.1",
+    "bulma-calendar": "^7.1.1",
     "classnames": "^2.5.1",
     "env-cmd": "^10.1.0",
     "prop-types": "^15.8.1",
