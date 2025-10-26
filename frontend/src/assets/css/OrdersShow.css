@@ -1,0 +1,104 @@
+/* OrdersShow Component Styling */
+.orders-show-container {
+  margin: 1rem 0;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.orders-table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.orders-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.orders-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.orders-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status buttons container */
+.status-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.status-button {
+  font-size: 0.8rem !important;
+  padding: 0.4rem 0.8rem !important;
+  min-width: 80px;
+  text-align: center;
+}
+
+.action-button {
+  font-size: 0.9rem !important;
+  padding: 0.5rem 1rem !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .orders-table {
+    font-size: 0.85rem;
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .status-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .status-button {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.6rem !important;
+    min-width: 70px;
+  }
+}
+
+/* Status specific styling */
+.status-in-attesa {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+.status-in-lavorazione {
+  background-color: #ffc107 !important;
+  border-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+.status-completato {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.is-disabled {
+  /* pointer-events: none; */
+  opacity: 0.6;
+  cursor: no-drop;
+}

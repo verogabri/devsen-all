@@ -30,7 +30,8 @@ try {
     }
     
     // Costruisce la query SQL in base ai parametri
-    $sql = "SELECT o.*, os.status_label FROM orders as o JOIN orders_status as os ON o.id_status = os.id ";
+    $sql = "SELECT o.*, os.status_label, c.name, c.surname FROM orders as o JOIN orders_status as os ON o.id_status = os.id ";
+    $sql .= " JOIN customers AS c ON c.id = o.id_customer "; // Esclude ordini eliminati
     $params = [];
     $limit = '';
     

@@ -15,7 +15,9 @@ export default ({config, db, logger}) => resource({
 })
 
 // crea un nuovo ordine
-.post('/add', function (req, res, next) {
+.post('/', function (req, res, next) {
+
+    // {"id_customer":1,"date":"2025-10-25","total":9.99}
 
     try {
         
@@ -27,48 +29,39 @@ export default ({config, db, logger}) => resource({
 
         let order = new Order();
 
-       start();
-          
-        /**
-         * se non ci sono stati errori con i dati e i permessi allora proseguo da qui
-         * 
-         */
-        const start = function start() {
 
-            // se ho la lista degli articoli, altrimneti
-            if (id_customer && total_amount ) {
+        // se ho la lista degli articoli, altrimneti
+        if (id_customer && total_amount ) {
 
-                const array_data = {
-                    date: date,
-                    total_amount: total_amount,
-                    id_customer: id_customer,
-                    status: status,
-                    token: req.user.access_token,
-                }
-
-                // invia l'ordine a extranet
-                order.addOrder(array_data, db, function (err, order_response) {
-
-                    if (order_response.id_order && err === false) {
-
-                        res.status(200).send(order_response);
-                        return;
-
-                    } else {
-                        
-                        res.status(500).send({error: "error in add order"});
-                        return;
-                    }
-
-                }, logger);
-
-            } else {
-
-                res.status(500).send({error: "invalid data order" });
-                 
+            const array_data = {
+                date: date,
+                total_amount: total_amount,
+                id_customer: id_customer,
+                status: status,
+                token: req.user.access_token,
             }
 
-        };
+            // invia l'ordine a extranet
+            order.addOrder(array_data, db, function (err, order_response) {
+
+                if (err === false) {
+
+                    res.status(200).send(order_response);
+                    return;
+
+                } else {
+                    
+                    res.status(500).send({error: "error in add order"});
+                    return;
+                }
+
+            }, logger);
+
+        } else {
+
+            res.status(500).send({error: "invalid data order" });
+                
+        }
 
 
     } catch (error) {
@@ -86,8 +79,7 @@ export default ({config, db, logger}) => resource({
 })
 // restituisce gli ordini di un cliente
 .get('/', function (req, res, next) {
-    console.log("Getting orders for customer");
-
+    
     const orders = new Order();
         if (req.user) {
             orders.getOrders({
@@ -106,8 +98,7 @@ export default ({config, db, logger}) => resource({
 })
 // restituisce gli ordini di un cliente
 .get('/:id_customer', function (req, res, next) {
-    console.log("Getting orders for customer");
-
+    
     let id_customer = req.params.id_customer ? req.params.id_customer : '';
 
     const orders = new Order();
@@ -152,16 +143,16 @@ export default ({config, db, logger}) => resource({
 })
 
 // aggiorna lo stato di un ordine
-.post('/status/:id_order/:status', function (req, res, next) {
+.put('/status/:id_order/:id_status', function (req, res, next) {
 
         let id_order = req.params.id_order ? parseInt(req.params.id_order, 10) : '';
-        let status = req.params.status ? req.params.status : '';
+        let id_status = req.params.id_status ? req.params.id_status : '';
 
         const orders = new Order();
         if (req.user) {
             orders.updateOrderStatus({
                 id_order: id_order,
-                status: status,
+                id_status: id_status,
                 token: req.user.access_token
             }, db, function (error, response) {
                 if (!error) {

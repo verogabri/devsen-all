@@ -3,8 +3,6 @@ require_once 'api.php';
 require_once 'db.php';
 require_once 'log.php';
 
-error_log(__FILE__ . ' - starting deleteCustomer.php');
-
 try {
     // Log dell'inizio della richiesta
     Log::info('deleteCustomer.php - Richiesta ricevuta con parametri GET: ' . json_encode($_GET));

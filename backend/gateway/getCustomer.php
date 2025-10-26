@@ -3,7 +3,6 @@ require_once 'api.php';
 require_once 'db.php';
 require_once 'log.php';
 
-error_log('starting getCustomer.php');
 try {
     // Log dell'inizio della richiesta
     Log::info('getCustomer.php - Richiesta ricevuta con parametri: ' . json_encode($_GET));
