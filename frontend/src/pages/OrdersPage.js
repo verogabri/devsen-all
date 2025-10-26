@@ -1,36 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-
-
-
+import { useParams } from 'react-router-dom';
 
 import OrdersContext from '../context/Orders';
-import useNavigation from '../hooks/use-navigation';
-
 import OrdersList from '../components/OrdersList/OrdersList'; 
 
-// import CustomersList from '../components/CustomersList/CustomersList';
-
-
-function OrdersPage({ params }) {
-
-  const { currentPath } = useNavigation();
+function OrdersPage() {
+  const { id_customer } = useParams();
   const { orders, customer_orders, fetchOrders } = useContext(OrdersContext);
 
-  
-  // Estrae il parametro name_customer dall'URL se presente
-  const getCustomerNameFromPath = () => {
-    const pathParts = currentPath.split('/');
-    if (pathParts.length === 3 && pathParts[1] === 'orders') {
-      return pathParts[2];
-    }
-    return null;
-  };
-  
-  const customerName = getCustomerNameFromPath();
-
   useEffect(() => {
-    fetchOrders('' + (customerName ? `${customerName}` : ''));
-  }, [customerName]); 
+    fetchOrders(id_customer || '');
+  }, [id_customer]);
 
 
   if(!orders){
@@ -40,20 +20,19 @@ function OrdersPage({ params }) {
 
   console.log(orders);
   return (
-    <div className="" >
-      {customerName ? (
+    <div className="">
+      {id_customer ? (
         <div>
-          <h2>Questi sono gli ordini di {customer_orders.name}</h2>
-            <OrdersList customer_orders={customer_orders} />
+          <h2>Questi sono gli ordini di {customer_orders?.name || id_customer}</h2>
+          <OrdersList customer_orders={customer_orders} />
         </div>
       ) : (
         <div>
-          lista degli ordini
+          <h2>Lista degli ordini</h2>
           <OrdersList customer_orders={customer_orders} />
         </div>
       )}
     </div>
-    
   );
 }
 

@@ -26,19 +26,13 @@ function Provider({children}) {
     // carico gli ordini dal JSON-server
     const fetchOrders = async (id_customer) => {
 
-        console.log(' :: App : fetchOrders : id_customer =',  id_customer);
-
         // la risposta è già nella forma che serve per la lista degli orders
         let URL = HOST_SERVER+'/'+ORDERS+'';
         if(id_customer){
             URL += `/${id_customer}`;
         }
 
-        console.log(' :: App : fetchOrders : url =',  URL);
-
         const response = await axios.get(URL);
-
-        console.log(' :: App : fetchOrders : axios response = ', response);
 
         // setLastAction('fetch orders at '+new Date().toLocaleTimeString());
 
@@ -51,14 +45,10 @@ function Provider({children}) {
 
     const editOrderById = async (id, orderData) => {
         try {
-            console.log(' :: App : editOrderById : id =', id);
-            console.log(' :: App : editOrderById : orderData =', orderData);
 
             // setLastAction('edit order at '+new Date().toLocaleTimeString());
 
             const response = await axios.put(HOST_SERVER+'/'+ORDERS+'/'+id, orderData);
-
-            console.log(' :: App : editOrderById : response =', response);
 
             // aggiorno la lista sostituendo tutto l'order id appena cambiato
             if(response.status === 200){
@@ -69,9 +59,6 @@ function Provider({children}) {
                     return order;
                 });
 
-                console.log(' :: App : editOrderById : response =', response);
-                console.log(' :: App : editOrderById : id =', id);
-                console.log(' :: App : editOrderById : updatedOrders =', updatedOrders);
 
                 setOrders(updatedOrders);
             } else {
@@ -96,16 +83,16 @@ function Provider({children}) {
 
     const deleteOrderById = async (id) => {
         try {
-            console.log(' :: App : deleteOrderById : id =', id);
-
+            
             // setLastAction('delete order at '+new Date().toLocaleTimeString());
             const response = await axios.delete(HOST_SERVER+'/'+ORDERS+'/'+id);
 
-            console.log(' :: App : deleteOrderById : response =', response);
-
             if(response.status === 200){
-                const updatedOrders = orders.filter(order => {
-                    return order.id !== id;
+                const updatedOrders = orders.map( (order) => {
+                    if(order.id === id){
+                        return {...order, ...response.data.data};
+                    }
+                    return order;
                 });
 
                 setOrders(updatedOrders);
@@ -129,16 +116,47 @@ function Provider({children}) {
         }
     };
 
+    const updateOrdersStatus = async (id, id_status) => {
+        try {
+            
+            const response = await axios.put(HOST_SERVER+'/'+ORDERS+'/status/'+id+'/'+id_status, {});
+
+            if(response.status === 200){
+                const updatedOrders = orders.map( (order) => {
+                    if(order.id === id){
+                        return {...order, ...response.data.data};
+                    }
+                    return order;
+                });
+
+                setOrders(updatedOrders);
+            } else {
+                alert('errore in update order status : '+response.status+' - '+response.statusText );
+            }
+        } catch (error) {
+
+            if (error.response) {
+                // Il server ha risposto con un codice di errore
+                alert(`Errore ${error.response.status}: ${error.response.data?.message || error.response.statusText}`);
+            } else if (error.request) {
+                // La richiesta è stata fatta ma non c'è stata risposta
+                alert('Errore di rete: il server non risponde');
+            } else {
+                // Qualcos'altro ha causato l'errore
+                alert('Errore: ' + error.message);
+            }
+        }
+    };
+
+
     // create an order con chiamata POST al JSON-server
     const createOrder = async (orderData) => {
         try {
-            console.log(' :: App : createOrder : orderData = ', orderData );
+            
 
             // chiamo POST e aspetto la risposta
             const response = await axios.post(HOST_SERVER+'/'+ORDERS, orderData);
 
-
-            console.log(' :: App : createOrder : ', response );
 
             if(response.status === 200 || response.status === 201){
                 // dopo la risposta aggiorno la lista degli ordini
@@ -151,7 +169,6 @@ function Provider({children}) {
                 alert('errore in create order : '+response.status+' - '+response.statusText );
             }
         } catch (error) {
-            console.error(' :: App : createOrder : error =', error);
             
             if (error.response) {
                 alert(`Errore ${error.response.status}: ${error.response.data?.message || error.response.statusText}`);
@@ -170,6 +187,7 @@ function Provider({children}) {
         fetchOrders,
         editOrderById,
         deleteOrderById,
+        updateOrdersStatus,
         createOrder  
     }
     

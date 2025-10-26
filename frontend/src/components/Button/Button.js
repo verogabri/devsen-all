@@ -10,6 +10,7 @@ function Button({
     danger,
     outline, rounded,
     className,
+    disabled,
     ...rest
 }) {
 
@@ -45,6 +46,7 @@ function Button({
         <button 
             className={classes}
             {...rest}
+            disabled={disabled}
         >{children}</button>
     )
 

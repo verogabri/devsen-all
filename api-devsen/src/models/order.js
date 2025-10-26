@@ -19,7 +19,8 @@ Orders.prototype.orders = {};
 Orders.prototype.addOrder = function (data, db, callback, logger) {
 
     var extranet = new GATEWAY();
-    extranet.addOrder(data, function(err, orders) {
+    extranet.addOrder(data, function(orders, err) {
+
         if (!err) {
             if(callback) callback(false, orders);
         }else{
@@ -34,11 +35,6 @@ Orders.prototype.getOrders = function (data, db, callback, logger) {
     let extranet = new GATEWAY();
     extranet.getOrders(data, function (err, orders) {
 
-                
-        console.log("Customers deleteCustomer response: orders", orders );
-        console.log("Customers deleteCustomer response: err", err);
-
-
         if (!err) {
             if (callback) callback(false, orders);
         } else {
@@ -51,7 +47,8 @@ Orders.prototype.getOrders = function (data, db, callback, logger) {
 Orders.prototype.updateOrderStatus = function (data, db, callback, logger) {
     let self = this;
     let extranet = new GATEWAY();
-    extranet.updateOrderStatus({ id_order: data.id_order, status: data.status, token: data.token}, function (err, orders) {
+    extranet.updateOrderStatus(data, function (err, orders) {
+        
         if (!err) {
             if (callback) callback(false, orders);
         } else {
@@ -65,6 +62,8 @@ Orders.prototype.deleteOrder = function (data, db, callback, logger) {
     let self = this;
     let extranet = new GATEWAY();
     extranet.deleteOrder({ id_order: data.id_order, token: data.token}, function (err, orders) {
+
+        
         if (!err) {
             if (callback) callback(false, orders);
         } else {

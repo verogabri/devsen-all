@@ -130,8 +130,7 @@ GATEWAY.prototype.updateOrderStatus = function (data, callback, logger) {
     let options = {
         host: config.gateway_url,
         port: config.gateway_port,
-        // path: '/getKitSubitems.php',
-        path: '/updateOrderStatus.php?id_order='+parseInt(data.id_order,10)+"&status="+data.status,
+        path: '/updateOrderStatus.php?id_order='+parseInt(data.id_order,10)+"&id_status="+data.id_status,
         method: 'GET',
         headers: {
             "Authorization": "Bearer " + data.token,

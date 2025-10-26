@@ -1,52 +1,45 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import CustomersContext from '../../context/Customers';
-
-import CustomersShow from '../CustomersShow/CustomersShow';
-import CustomerAdd from '../CustomerAdd/CustomerAdd';
-import Button from '../Button/Button';
-
-// import useBooksContextHook from '../../hooks/use-books-context';
 import OrdersContext from '../../context/Orders';
-import Table from '../Table/Table';
+import OrdersShow from '../OrdersShow/OrdersShow';
+import Button from '../Button/Button';
 
 function OrdersList({ customer_orders}) {
 
-    // 3 modi per definire la stessa cosa
     const { orders } = useContext(OrdersContext);
+    const navigate = useNavigate();
 
-
-    console.log(' :: OrdersList : OrdersList = ', orders );
+    const handleNewOrderClick = () => {
+        navigate('/order/createnew');
+    };
 
     if(orders.length === 0) {
-        return <div>No orders found</div>;
+        return (
+            <div>
+                <div>No orders found</div>
+                <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
+                    <Button primary onClick={handleNewOrderClick}>
+                        Nuovo Ordine
+                    </Button>
+                </div>
+            </div>
+        );
     }
 
-    const config = [
-        {
-            label: 'data ordine',
-            render: (order) => order.date,
-            sortValue: (order) => order.date
-        },
-        {
-            label: 'totale',
-            render: (order) => order.total,
-            sortValue: (order) => order.total
-        },       
-    ];
-
-
-
-
+    
 
     return (
-        <div className='customer-list'>
-            
+        <div className='order-list'>
             <div>
-                <Table data={orders} config={config} />
+                <OrdersShow orders={orders} />
             </div>
             
-            
+            <div style={{ margin: '1.5rem 0', textAlign: 'center' }}>
+                <Button primary onClick={handleNewOrderClick}>
+                    Nuovo Ordine
+                </Button>
+            </div>
         </div>
     );
 

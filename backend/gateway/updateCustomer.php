@@ -3,7 +3,6 @@ require_once 'api.php';
 require_once 'db.php';
 require_once 'log.php';
 
-error_log(__FILE__ . ' - starting updateCustomer.php');
 
 try {
     // Verifica che la richiesta sia POST

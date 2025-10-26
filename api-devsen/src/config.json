@@ -13,11 +13,11 @@
 	"secret":"",
 	"refresh_secret":"",
 	
-	"activation_url":"http://localhost:3003/user/verify?id={{id}}&token={{token}}&code={{code}}&redirect_url={{redirect_url}}",
-	"verify_change_email_url":"http://localhost:3003/user/verifyEmail?id={{id}}&token={{token}}&code={{code}}",
-	"recover_password_url":"http://localhost:3003/user/updatePassword?id={{id}}&token={{token}}&code={{code}}&stage=-1",
-	"unsubscribe_url":"http://localhost:3003/user/unsubscribeFromNewsletter?stage=-1",
-	"confirm_unsubscribe_url":"http://localhost:3003/user/confirmUnsubscribe?email={{email}}&lang={{lang}}&stage=-1",
+	"activation_url":"",
+	"verify_change_email_url":"",
+	"recover_password_url":"",
+	"unsubscribe_url":"",
+	"confirm_unsubscribe_url":"",
 
 	"activation_code_len":12,
 	"token_expires_seconds": 31536000,
@@ -25,17 +25,9 @@
 	"guest_role_id":999,
 	"id_role_admin":1,
 	"id_role_merchant":2,
-	"lambda_env":"$LATEST",
-	"s3_ext_file":"jpeg",
-	"signed_s3_url_expire_seconds":7200,
-	"search_users_limit":10,
-	"search_roles_limit":10,
-	"search_areas_limit":10,
-	"search_permissions_limit":10,
-
+	
 	"gateway_url":"devsen.svi",
 	"gateway_port":96
-	
 	
 
 }
