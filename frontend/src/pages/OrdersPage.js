@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import OrdersContext from '../context/Orders';
@@ -10,7 +10,7 @@ function OrdersPage() {
 
   useEffect(() => {
     fetchOrders(id_customer || '');
-  }, [id_customer]);
+  }, [id_customer, fetchOrders]);
 
 
   if(!orders){

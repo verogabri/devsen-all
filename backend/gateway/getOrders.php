@@ -48,9 +48,10 @@ try {
         // Nessun limit quando si filtra per cliente
     } else {
         // Se non ci sono parametri, limit 10
-        $limit = " LIMIT 10";
+        // $limit = " LIMIT 10";
     }
     
+    $sql .= " ORDER BY o.id DESC ";
     // Aggiunge il limit se necessario
     $sql .= $limit;
     

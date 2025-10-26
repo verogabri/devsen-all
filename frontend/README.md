@@ -1,79 +1,84 @@
-# Section 10: A lot of Components
+# Cliente per Gestione Clienti e Ordini
 
-in questo progetto si vuole creare un sidebar menu che ad ogni click mostra un componente diverso
-e ogni componente mostra qualcosa di usabile: un dorpdown menu, un accordione, una tabella, ecc
+Questo è il client frontend che mostra le funzionalità di una possibile applicazione per la gestione di clienti e ordini. L'applicazione è sviluppata in React e fornisce un'interfaccia utente completa per la gestione dei dati aziendali.
 
-il progetto si espanderà attraverso altre sezioni
+## Funzionalità Principali
 
-## Button
-come fare un Buttons che può essere personalizzato passando dei parametri specifici
-questi parametri sono boolean e attivano o meno delle propietà
-i parametri vengono definiti come "props-type"
+### Gestione Clienti
+L'applicazione permette di:
+- **Visualizzare la lista dei clienti** con tutti i loro dati principali
+- **Aggiungere un nuovo cliente** tramite un form dedicato
+- **Modificare i dati** di un cliente esistente
+- **Cancellare un cliente** dal sistema (quando necessario)
 
-### prop-type
-https://www.npmjs.com/package/prop-types
+### Gestione Ordini
+Per gli ordini è possibile:
+- **Visualizzare la lista degli ordini** con informazioni dettagliate (data, cliente, totale, stato)
+- **Aggiornare lo stato** degli ordini (In Attesa → In Lavorazione → Completato)
+- **Annullare un ordine** (se lo stato lo permette - non disponibile per ordini con stato >= 3)
+- **Aggiungere un nuovo ordine** nella apposita pagina di creazione
 
-PS: Typescripts lo fa di suo
+## Architettura Tecnica
 
-### Tailwind.css
-"Tailwind.css is a dumb!" Però ti costringe a lavorare faccendo piccoli componenti riutilizzabili,
-quindi è un buon esercizio
+### Stack Tecnologico
+- **React 18.3.1** - Framework principale
+- **React Router DOM 6.23.1** - Gestione routing client-side
+- **Axios 1.12.2** - Client HTTP per chiamate API
+- **Context API** - Gestione stato globale
+- **Tailwind CSS** - Styling e responsive design
 
-https://tailwindcss.com/docs/guides/create-react-app
+### Struttura delle Pagine
+- **Home** (`/`) - Pagina principale con sidebar di navigazione
+- **Clienti** (`/customers`) - Lista e gestione clienti
+- **Ordini** (`/orders`) - Lista e gestione ordini
+- **Nuovo Ordine** (`/order/createnew`) - Form per creare ordini
 
-per il progetto
-    $ npm install -D tailwindcss postcss autoprefixer
-    $ npx tailwindcss init -p
+## Integrazione API
 
-Poi editare il file index.css
-e aggiungerlo a index.js
+Tutte le operazioni sui dati sono eseguite chiamando apposite URL del servizio API:
 
-### classnames
-siccome tailwind is a dumb, usare tutte le classi e le modifche parametrizzate
-può divenatre lungo e tedioso, aggiungiamo un altro componente:
+### Operazioni Clienti
+- `GET /customers` - Recupera lista clienti
+- `POST /customers` - Crea nuovo cliente
+- `PUT /customers/:id` - Aggiorna cliente esistente
+- `DELETE /customers/:id` - Elimina cliente
 
-    $ npm i classnames
+### Operazioni Ordini
+- `GET /orders` - Recupera lista ordini
+- `GET /orders/:id_customer` - Recupera ordini per cliente specifico
+- `POST /orders` - Crea nuovo ordine
+- `PUT /orders/:id` - Aggiorna ordine (principalmente per cambio stato)
+- `DELETE /orders/:id` - Elimina/annulla ordine
 
-che rende la configurazione di className più semplice
+## Configurazione
 
-### react-icons
-e per finire un po' di icone
-react-icons è un componente che permette di usare le principali libbrerie di icons
-senza dover installare una per una
+Il server API va configurato nel file `src/config/config.js`. 
 
-    $ npm install --save-exact react-icons@4.6.0
+Esempio di configurazione:
+```javascript
+export const HOST_SERVER = 'http://localhost:3003';
+```
 
-### event 
-uso il barbatrucco ...rest per passare tutti gli eventi all'elemento che sto creando
+## Installazione e Avvio
 
+1. Installa le dipendenze:
+```bash
+npm install
+```
 
-# sezione 11: Matering the State Design Process
-come fare un accordion e come evitare problemi di ritardi con useState
+2. Configura l'endpoint API nel file `config/config.js`
 
-non farsi troppe seghe mentali su come organizzare i propri file e compoenenti,
-basta che il progetti funzioni
+3. Avvia l'applicazione:
+```bash
+npm start
+```
 
-# sezione 12: Practing Props and State
-come fare un DropBox
+L'applicazione sarà disponibile su `http://localhost:3000`
 
-## Panel compponent
-creo un componenet Panel che contiene cose e che posso usare liberamente nel progetto
+## Note Tecniche
 
-
-# sezione 13: making navigation
-in react un Navigator è un po' svidante e normalmente si preferisce usare qualche libreria
-
-# section 14: Creating Portal
-
-ma prima un nuovo componente: "modal"
-o volgarmente chiamato popup, un box che si apre in pagina sopra tutto con uno o più pulsanti di azione
-
-## ReactDOM.createPortal
-react prende tutti i componenti uno in fila all'altro e genera un blocco di output html che renderizza nel componente della pagian index, psesso indicato come "root"
-RecatDOM.createPOrtal invece prendere un pezzo di html e lo renderizza in qualche altro elemento della pagian ibdex.
-Particolarmente indicato nel caso di Modal (popup) che deveono essere visualizzati al piena pagina e sopra tutti gli altri elementi
-
-# section 15: Make a Feature-Full Data Table!
-# section 16: getting clever with Sortable Table
-
-# section 17: Custom Hooks in Depth
+- L'applicazione utilizza il Context API per la gestione dello stato globale
+- Tutte le chiamate API includono gestione degli errori con messaggi informativi
+- L'interfaccia è responsive e ottimizzata per dispositivi mobili
+- I componenti sono modulari e riutilizzabili
+- Validazione PropTypes implementata per type safety
